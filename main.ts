@@ -36,6 +36,12 @@ if (typeof video.url !== 'string' || video.url.length === 0) {
   process.exit(1);
 }
 
+const youtube = /^(https?:\/\/)?(www\.|m\.)?(youtube\.com\/(shorts\/|watch\?v=)|youtu\.be\/)[A-Za-z0-9_-]{11}/;
+if (!youtube.test(video.url)) {
+  console.error(`VIDEO.json url is not a YouTube video address: ${video.url}`);
+  process.exit(1);
+}
+
 mkdirSync(outputDir, { recursive: true });
 writeFileSync(target, payload);
 console.log(`handed in ${video.url}`);
